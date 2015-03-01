@@ -1,0 +1,10 @@
+<section cite="/audios/all">
+{if isset($audios)}
+        <h1>Audio List</h1>
+        <ol>
+     {foreach $audios as $i => $audio}
+        <li>{echo $audio->name} {echo $audio->mime} {echo $audio->duration}</li>
+     {/foreach}
+        </ol>
+{/if}
+</section>

@@ -1,0 +1,25 @@
+<style>
+#canvas {
+   width: 100%;
+    border 0.2em inset darkgrey;
+}
+</style>
+<section class="wrapper">
+    <canvas id="canvas" width="auto" height="auto" class="wrapper"></canvas>
+    <button id="btnDrawPolygon">Draw</button>
+    <label for="radius">radius:
+        <input id="numRadius" name="radius" type="range" min="1" max="100" step="1" value="10">
+        <span id="radius"></span>
+    </label>
+    <label for="numSides">numSides:
+        <input id="numSides" name="numSides" type="range" min="3" max="25" step="1" value="3">
+        <span id="sides"></span>
+    </label>
+    <label for="numColor">numColor:
+        <input id="numColor" name="numColor" type="range" min="0" max="16777215" step="1" value="0">
+        <span id="color"></span>
+    </label>
+</section>
+<script>
+    {inline /application/scripts/polygon.js}
+</script>

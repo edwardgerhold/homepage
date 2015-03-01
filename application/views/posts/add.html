@@ -1,0 +1,27 @@
+{if isset($success)}
+<p>Your post has been created.</p>
+{/if}
+{else}
+<form class="wrapper" method="post" action="/posts/add">
+    <label>Title:
+        <input type="text" name="title" required><br>
+    </label>
+    <label>
+        Content:<br>
+        <textarea name="content"></textarea><br>
+    </label>
+    Category:
+    <select name="category">
+        {if isset($categories)}
+        {foreach $categories as $category}
+        <option name="category" value="{echo $category->id}">{echo $category->name}</option>
+        {/foreach}
+        {/if}
+    </select>
+    <label>
+        Send: <input type="submit" name="post" value="post"><br>
+    </label>
+</form>
+{/else}
+
+{editor}

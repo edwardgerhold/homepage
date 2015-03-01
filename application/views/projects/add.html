@@ -1,0 +1,11 @@
+{if isset($success)}
+<p>Your project has been added!</p>
+{/if}
+
+<form method="post">
+    <label for="name">Project name:</label>
+    <input id="name" type="text" name="name" placeholder="project name">
+    <label for="description">Project Description</label>
+    <textarea id="name" name="description">Project Description</textarea>
+    <input type="submit" name="add" value="add">
+</form>

@@ -1,0 +1,117 @@
+<style>
+    #radioContainer {
+        background-color: #ccc;
+        border: 1em solid rgba(0,0,0,0.5);
+        border-radius: 1.5625em;
+        box-shadow: 0em 0em 0.25em #000;
+        padding: 1.25em;
+        margin: 2.5em auto;
+        overflow: hidden;
+        width: 70em;
+    }
+    h1.radio {
+        font-size: 1.8em;
+        margin: 0 0 0.625em;
+        text-align: center;
+    }
+    h2.radio {
+        margin: 0.625em 0 0.3125em;
+    }
+    label.radio {
+        left:-624.9375em;
+    }
+    #stationList {
+        background-color: #fff;
+        border: 0.0625em solid black;
+        border-radius: 0.3125em;
+        color: #333;
+        cursor: pointer;
+        padding: 0.3125em;
+        text-align: center;
+        width: 100%;
+    }
+    #radioPlayer {
+        float: left;
+        width: 100%;
+    }
+    #currentStation {
+        color: #333;
+        text-shadow: #999;
+    }
+    #radioControls {
+        text-align: left;
+        visibility: hidden;
+        margin-top: 0.625em;
+    }
+    #volumeControl {
+        border: 0.325em solid #fff;
+        cursor: pointer;
+        float: left;
+        height: 1.5625em;
+        margin: 0.03125em;
+        position: relative;
+        width: 3.75em;
+    }
+    #volume_background {
+        background-color: #ccc;
+        height: 1.5625em;
+        width: 3.75em;
+    }
+    #volume_bar {
+        background: #fff;
+        color: #333;
+        height: 1.5625em;
+        position: absolute;
+        text-align: center;
+        width: 0;
+    }
+    button.radio {
+        background: #fff;
+        border: none;
+        border-radius:0.75em;
+        cursor:pointer;
+        height:1.6875em;
+        padding:0.03125em;
+    }
+</style>
+<section cite="/audios/stream">
+    <style scoped>
+        * {
+            color: #000;
+            font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+            margin:0;
+            padding: 0;
+        }
+    </style>
+<div id="radioContainer">
+    <h1 class="radio">HTML5 Audio Stream Player</h1>
+    <p>From the HTML5 Developer Cookbook by Leadbetter and Hudson für meine Homepage abgetippt.
+    Die Radiostationen kann man wohl austauschen. Ich finde das Buch bietet gute Grundlagen für einige Optionen.
+    Andere Optionen wie Echtzeitkommunikation mit WebRTC oder erweiterte experimentelle APIs wie Battery, etc. muss man
+    sich halt anderswo abgucken. Das und das andere (die anderen) Kochbuch/Kochbücher bieten gute generelle Grundlagen.</p>
+    <audio id="audioPlayer">
+        <p>Your browser does not support the HTML5 audio player.</p>
+    </audio>
+    <div id="stations">
+        <label class="radio" for="stationList">Stations
+            <select name="stationList" id="stationList" size="5" onChange="setStation();"></select>
+            </label>
+        <div id="radioPlayer">
+            <h2 class="radio" id="radioStatus"></h2>
+            <p id="currentStation"></p>
+        </div>
+        <div id="radioControls">
+            <div id="volumeTitle">Volume</div>
+            <div id="volumeControl" onclick="volumeChange()">
+                <div id="volume_background">
+                    <div id="volume_bar"></div>
+                </div>
+            </div>
+            <button class="radio" id="buttonPlayPause" onclick="playPauseClicked()"></button>
+        </div>
+    </div>
+</div>
+    <script>
+        {inline /application/scripts/stream.js}
+    </script>
+</section>

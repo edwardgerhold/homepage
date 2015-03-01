@@ -1,0 +1,94 @@
+<section class="wrapper" cite="/index.html">
+
+    {if isset($success)}
+    <p>Your request could be fulfilled.</p>
+    {/if}
+
+    {if isset($errors) && (sizeof($errors) > 0)}
+    <h1>List of Errors</h1>
+    <ul>
+        {foreach $errors as $name => $value}
+        <li>{echo $error->name}: {echo $error->value}</li>
+        {/foreach}
+    </ul>
+    {/if}
+
+    <section class="wrapper" cite="/posts/all.html">
+        {if isset($posts)}
+        {foreach $posts as $post}
+        <span class="postlabel wrapper">Post</span>
+        <article itemscope itemtype="http://schema.org/Article" class="post wrapper">
+            <header class="header wrapper">
+                {if isset($user) && ($user->admin || ($post->user == $user->id))}
+                <a class="wrapper" href="/posts/edit/{echo $post->id}.html">edit</a>
+                <a class="wrapper" href="/posts/delete/{echo $post->id}.html">delete</a>
+                {/if}
+                <h2 class="title wrapper">{echo $post->title}</h2>
+                {if (isset($post->created))}
+                <time class="created wrapper">{echo $post->created}</time>
+                {/if}
+                {if isset($post->first)}<span itemscope itemprop="http://schema.org/Author" class="author wrapper">{echo $post->name} ({echo $post->first} {echo $post->last})</span>{/if}
+            </header>
+            <p class="content wrapper">{echo $post->content}</p>
+            <footer class="comment wrapper">
+                {foreach $post->comments as $comment}
+                <article class="comment wrapper">
+                    <h4>{echo $comment->title}</h4>
+                    {if !empty($comment->created)}{echo $comment->created}{/if}
+                    {if !empty($comment->name)}<p>{echo $comment->name}</p>{/if}
+                    <p>{echo $comment->content}</p>
+                    <a class="hide_reply" href="#"
+                       onclick="document.forms.reply{echo $comment->id}.hidden = !document.forms.reply{echo $comment->id}.hidden;event.preventDefault();">[reply]</a>
+                    <section class="reply wrapper">
+                        {if isset($comment->replies)}
+                        {foreach $comment->replies as $reply}
+                        <article class="reply wrapper">
+                            {if !empty($reply->title)}<h5>{echo $reply->title}</h5>{/if}
+                            {if !empty($reply->created)}{echo $reply->created}{/if}
+                            {if !empty($reply->name)}<p>{echo $reply->name}</p>{/if}
+                            <p>{echo $reply->content}</p>
+                        </article>
+                        {/foreach}
+                        {/if}
+                        <form name="reply{echo $comment->id}" method="post" action="/posts/reply/{echo $comment->id}">
+                            <label>Quote: <input type="checkbox" name="quote"></label>
+                            <label>Title: </label><input type="text" name="title" value="Re: {echo $comment->title}">
+                            <label>Reply: </label><textarea name="content"></textarea>
+                            <input type="hidden" name="origin" value="/index.html">
+                            <input type="hidden" name="article" value="{echo $post->id}">
+                            <input type="submit" name="reply" value="reply">
+                        </form>
+                    </section>
+
+                </article>
+                {/foreach}
+                <a class="hide_comment" href="#"
+                   onclick="document.forms.comment{echo $post->id}.hidden = !document.forms.comment{echo $post->id}.hidden;event.preventDefault();">[write
+                    comment]</a>
+
+                <form name="comment{echo $post->id}" method="post" action="/posts/comment/{echo $post->id}" hidden>
+                    <label>Quote: <input type="checkbox" name="quote" value="quote"></label>
+                    <label>Name: <input type="text" name="name" value="{if isset($user)}{echo $user->name}{/if}"
+                                        placeholder="your name"></label>
+                    <label>Title: <input type="text" name="title" value="" placeholder="title"></label>
+                    <label>Comment: <textarea name="content"></textarea></label>
+                    <!-- das sollte geändert werden -->
+                    <input type="hidden" name="origin" value="/index.html">
+                    <!-- indem darauf der controller gestartet wird -->
+                    <input type="submit" name="comment" value="comment">
+                </form>
+
+            </footer>
+        </article>
+        {/foreach}
+        <script>
+            {inline /application/scripts/comment.js}
+        </script>
+        {/if}
+        {else}
+        <p>Habe keine aktuellen Testposts in der Datenbank!</p>
+        {/else}
+    </section>
+
+</section>
+{editor}

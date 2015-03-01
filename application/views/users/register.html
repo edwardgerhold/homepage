@@ -1,0 +1,184 @@
+<section class="wrapper register" cite="/users/register">
+    <h1>Register</h1>
+    <a href="https://ssl-110577.1blu.de/register">secure</a>
+    {if isset($success)}
+    <p>Your account has been created!</p>
+    <p>You may now <a href="/users/login">log into</a> the system.</p>
+    {/if}
+    {else}
+
+    {if isset($errors) && isset($errors["validation"])}
+    <p>Validation Error!</p>
+    <p>{echo \Framework\Markup::errors($errors, "validation")}</p>
+    <p>Please correct your information.</p>
+    {/if}
+
+    <form class="wrapper" method="post" enctype="multipart/form-data">
+        <fieldset>
+            <h2>Mandatory Data</h2>
+            <p>Username and Password are required to create the account. You can log in at once.</p>
+            <ul class="form">
+                <li>
+                    <label>
+                        Username:
+                        <input type="text" name="name" required title="Please enter a valid username"/>
+                        {echo \Framework\Markup::errors($errors, "name")}
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Password:
+                        <input type="password" name="password" required title="Please enter a safe password"/>
+                        {echo \Framework\Markup::errors($errors, "password")}
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Verify Password:
+                        <input type="password" name="password2" required title="Please verify the password again"/>
+                        {echo \Framework\Markup::errors($errors, "password")}
+                    </label>
+                </li>
+            </ul>
+            <input type="submit" name="register" value="register" />
+        </fieldset>
+        <fieldset>
+            <h2>Additional Information</h2>
+            <p>You can also add the informations on the settings page. It will fill up your profile.</p>
+            <ul class="form">
+
+                <li>
+                    <label>
+                        Photo:
+                        <input id="photo" name="photo" type="file" accept="image/*;capture=camera" capture="camera">
+                    </label>
+                    <section id="wrapper">
+                        <section id="photoInfos"></section>
+                        <img id="photoPreview" src="">
+                    </section>
+                </li>
+                <li>
+                    <label>
+                        First name:
+                        <input type="text" name="first" />
+                        {echo \Framework\Markup::errors($errors, "first")}
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Last name:
+                        <input type="text" name="last" />
+                        {echo \Framework\Markup::errors($errors, "last")}
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Email:
+                        <input type="text" name="email" />
+                        {echo \Framework\Markup::errors($errors, "email")}
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Website:
+                        <input type="text" name="website" />
+                        {echo \Framework\Markup::errors($errors, "website")}
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        City:
+                        <input type="text" name="city" />
+                        {echo \Framework\Markup::errors($errors, "city")}
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Country:
+                        <input type="text" name="country" />
+                        {echo \Framework\Markup::errors($errors, "country")}
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Job:
+                        <input type="text" name="job" />
+                        {echo \Framework\Markup::errors($errors, "job")}
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Company:
+                        <input type="text" name="company" />
+                        {echo \Framework\Markup::errors($errors, "company")}
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Language:
+                        <input type="text" name="language" />
+                        {echo \Framework\Markup::errors($errors, "language")}
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Motto:
+                        <input type="text" name="motto" />
+                        {echo \Framework\Markup::errors($errors, "motto")}
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Hobbies:
+                        <input type="text" name="hobbies" />
+                        {echo \Framework\Markup::errors($errors, "hobbies")}
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Like:
+                        <input type="text" name="likes" />
+                        {echo \Framework\Markup::errors($errors, "likes")}
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Don´t like:
+                        <input type="text" name="doesntlike" />
+                        {echo \Framework\Markup::errors($errors, "doesntlike")}
+                    </label>
+                </li>
+                <li>
+                    <label>Birthday:
+                        <label>Year:
+                            <select name="year">
+                                {foreach range(1900,2015) as $i}
+                                <option name="year" value="{echo $i}">{echo $i}</option>
+                                {/foreach}
+                            </select>
+                        </label>
+                        <label>Month:
+                            <select name="month">
+                                {foreach range(1,12) as $i}
+                                <option name="month" value="{echo $i}">{echo $i}</option>
+                                {/foreach}
+                            </select>
+                        </label>
+                        <label>Day:
+                            <select name="day">
+                                {foreach range(1,31) as $i}
+                                <option name="day" value="{echo $i}">{echo $i}</option>
+                                {/foreach}
+                            </select>
+                        </label>
+                    </label>
+                </li>
+            </ul>
+        </fieldset>
+        <input type="submit" name="register" value="register" />
+    </form>
+    {/else}
+</section>
+    <script>
+        {inline /application/scripts/photo.js}
+    </script>

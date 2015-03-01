@@ -1,0 +1,60 @@
+
+    <style>
+
+        div.sprite   { background-image: url(/images/tictactoe.png); width: 50px; height: 50px; }
+        div.sprite.o { background-position: 0px 0px; }
+        div.sprite.x { background-position: 51px 0px; }
+        div.figur {
+            position:absolute;
+            width: 50px;
+            height: 50px;
+        }
+
+        div.tictactoe {
+            position:relative;
+            font-family:arial;
+        }
+
+        div.foreground {
+            position:absolute;
+            top:0;
+            left:0;
+            opacity:0.5;
+            background:#eed;
+        }
+
+        canvas.background {
+            position:relative;
+            top:0;
+            left:0;
+            border-radius:8px;
+            background: beige;
+        }
+
+
+        div.tictactoe-messages button {
+            border-radius:4px;
+            border: 1px inset darkgrey;
+            background:lightgrey;
+            color: black;
+        }
+
+    </style>
+
+    <h1>Tic Tac Toe</h1>
+
+            <p>Mein erstes Spiel, von Februar 2013.</p>
+
+            <p>Als ich CS61B Datastructures und Algorithms guckte und der Game Tree Search drankam..</p>
+    
+    <div class="tictactoe">
+    </div>
+
+
+    <script>
+        {inline /application/scripts/tictactoe.js}
+    </script>
+
+
+</body>
+</html>

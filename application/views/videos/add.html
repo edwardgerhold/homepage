@@ -1,0 +1,39 @@
+<h1>Videos</h1>
+
+{if isset($success)}
+<p>Your Video has been added!</p>
+{/if}
+
+{if isset($videos)}
+<ul class="videos">
+    {foreach $videos as $video}
+    <li>
+        <a href="/videos/play/{echo $video->id}">Play</a>:
+        {echo $video->title} ({echo $video->author})
+        {if $user->admin}
+        <a href="/videos/sources/addvideo/{echo $video->id}">add source</a>
+        <a href="/videos/edit/{echo $video->id}">edit</a>
+        <a href="/videos/delete/{echo $video->id}">edit</a>
+        <a href="/videos/undelete/{echo $video->id}">edit</a>
+        {/if}</li>
+    {/foreach}
+</ul>
+{/if}
+
+{if $user->admin}
+<p>Admistration - add a new video</p>
+
+<form method="post">
+    <label>Title:
+        <input type="text" name="title" required>
+    </label>
+    <label>From:
+        <input type="text" name="author">
+    </label>
+    <label>Poster-URL:
+        <input type="text" name="poster">
+    </label>
+    <input type="submit" name="add" value="add">
+</form>
+
+{/if}

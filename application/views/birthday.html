@@ -1,0 +1,17 @@
+<label>Birthday:
+<select name="year">
+    {foreach range(1900,2015) as $i}
+    <option name="year" value="{echo $i}"></option>
+    {/foreach}
+</select>
+<select name="month">
+    {foreach range(1,12) as $i}
+    <option name="month" value="{echo $i}"></option>
+    {/foreach}
+</select>
+<select name="day">
+    {foreach range(1,31) as $i}
+    <option name="day" value="{echo $i}"></option>
+    {/foreach}
+</select>
+</label>

@@ -1,0 +1,10 @@
+{if isset($actions)}
+<nav class="actions">
+    {script $name=$actions["name"];}
+    {script $actions=$actions["actions"];}
+    <p><b>$name</b>:
+    {foreach $actions as $link}
+        <a href="/{$name}/{$link}.html">{$link}</a>
+    {/foreach}
+</nav>
+{/if}

@@ -1,0 +1,23 @@
+<section cite="/friends/all">
+
+    <h1>My Friends</h1>
+
+    <p>I was the first to klick on the friendship link:</p>
+
+    <ol>
+    {foreach $byUsers as $byUser}
+        <li>{echo $byUser->name} ({echo $byUser->first} {echo $byUser->last})</li>
+    {/foreach}
+    </ol>
+
+    <h1>Friend Of</h1>
+
+    <p>I was the friendship link, they clicked on:</p>
+
+    <ol>
+        {foreach $byFriend as $friend}
+        <li>{echo $friend->name} ({echo $friend->first} {echo $friend->last})</li>
+        {/foreach}
+    </ol>
+
+</section>

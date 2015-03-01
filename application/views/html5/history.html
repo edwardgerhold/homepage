@@ -1,0 +1,74 @@
+<style>
+    #slide {
+        height:6.25em;
+    }
+</style>
+<section cite="/html5/slideshow">
+    <!--<div id="slide"><img id="imgSlide" src="images/slide1.jpg"></div>-->
+    <div id="slide"><div id="currentSlide"></div></div>
+    <div id="slideInfo"></div>
+    <label>
+        Border:
+        <input id="chkBorder" type="checkbox" onChange="setImgBorder();">
+    </label>
+    <label>
+        Prev slide:
+        <input type="button" onclick="prevSlide()" value="previous">
+    </label>
+    <label>
+        Next slide:
+        <input type="button" onclick="nextSlide()" value="next">
+    </label>
+    <label>
+        Textnote:
+        <input type="text" id="txtNote" value="">
+    </label>
+
+<div id="stateInfo"></div>
+</section>
+<script>
+    {inline /application/scripts/slideshow.js}
+</script>
+
+<script type="slideshow/slide1">
+<h1>EcmaScript 6</h1>
+        <h2>Is coming soon to your browsers!</h2>
+        <p>It´s finalized in 2014 and ready in 2015</p>
+        <p>It will be there for a couple of years.</p>
+        <p>EcmaScript 7 will be coming next.</p>
+        <p>I can give you a little insight today.</p>
+</script>
+<script type="slideshow/slide2">
+<h1>EcmaScript 6</h1>
+<h2>Functions and Generators</h2>
+<p>Earlier we had FunctionDeclarations (ES1) and FunctionExpressions (ES3) to run code. In EcmaScript 6
+ there will be another kind of function, a resumable function. The resumable function is called generator.
+ <pre>
+ function *rand(max) {
+    while (1) {
+        yield Math.random() * max;
+    }
+ }
+ let f = rand(100);
+ f.next();
+ // 55.34256262623456
+ f.next();
+ // 31.26272654123678
+ f.next();
+ // 92.25125623363463
+ </pre>
+ <p>The generator function has to be called once. It returns an object which has a next Method,
+ this is used to go from yield to yield to yield.
+</script>
+<script type="slideshow/slide3">
+<h1>EcmaScript 6</h1>
+        This is slide 3
+</script>
+<script type="slideshow/slide4">
+<h1>EcmaScript 6</h1>
+        This is slide 4
+</script>
+<script type="slideshow/slide5">
+<h1>EcmaScript 6</h1>
+        This is slide 5
+</script>

@@ -1,0 +1,25 @@
+<h1>WebGL</h1>
+<canvas width="auto" height="auto" class="wrapper"></canvas>
+<script>
+    {inline /application/scripts/triangle2.js}
+</script>
+
+<script id="vshader" type="x-shader">
+    attribute vec3 aVertexPosition;
+    attribute vec4 aVertexColor;
+    varying vec4 vColor;
+
+    void main() {
+        vColor = aVertexColor;
+        gl_Position = vec4(aVertexPosition, 0.8);
+    }
+</script>
+
+<script id="fshader" type="x-shader">
+    precision mediump float;
+    varying vec4 vColor;
+
+    void main() {
+        gl_FragColor = vColor;
+    }
+</script>

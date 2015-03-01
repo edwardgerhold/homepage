@@ -1,0 +1,29 @@
+{if isset($success)}
+<p>The topic has been updated</p>
+{/if}
+{else}
+
+{if isset($errors)}
+<h1>List of Errors</h1>
+<ul>
+    {foreach $errors as $name => $value}
+    <li>{echo $error->name}: {echo $error->value}</li>
+
+    {/foreach}
+</ul>
+{/if}
+
+
+{if isset($editable)}
+<form class="wrapper" class="wrapper" method="post" action="/topics/edit/{echo $editable->id}">
+    <label>New topic name:<br>
+        <input type="text" name="name" value="{echo $editable->name}">
+    </label>
+    <input type="submit" name="save" value="save">
+</form>
+{/if}
+{else}
+<p>Can not edit topic</p>
+{/else}
+
+{/else}

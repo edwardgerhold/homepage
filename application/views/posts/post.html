@@ -1,0 +1,16 @@
+<h1 class="wrapper">Einzelner Post</h1>
+{if isset($post) && !empty($post)}
+<h1 class="wrapper postlabel">Post</h1>
+<article class="post wrapper">
+    {if isset($user) && ($user->admin || ($post->user == $user->id))}
+        <a href="/posts/edit/{echo $post->id}.html">edit</a>
+        <a href="/posts/delete/{echo $post->id}.html">delete</a>
+    {/if}
+    <h2 class="title wrapper">{echo $post->title}</h2>
+    <time class="created wrapper">{echo $post->created}</time>
+    <p class="content wrapper">{echo $post->content}</p>
+</article>
+{/if}
+{else}
+    <h1 class="wrapper">No Post!</h1>
+{/else}

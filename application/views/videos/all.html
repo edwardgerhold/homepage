@@ -1,0 +1,11 @@
+<h1>Videos</h1>
+<p>Here is a list of all videos</p>
+{if isset($videos)}
+<ol>
+    {foreach $videos as $video}
+    <li><a href="/videos/play/{echo $video->id}">{echo $video->title}</a><br></li>
+    {/foreach}
+</ol>
+<p>Click on a video to watch it..</p>
+{/if}
+

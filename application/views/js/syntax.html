@@ -1,0 +1,77 @@
+<style>
+    pre{
+        background:white;
+    }
+</style>
+<h1>Syntax.js</h1>
+<p>The newer JavaScript Interpreter written in older JavaScript</p>
+
+<pre id="code1" class="wrapper">
+            class C extends Array {
+                constructor(...args) {
+                    super(...args);
+                    this.forEach(console.log.bind(console));
+                }
+            }
+            let c = new C("a","b","c");
+            // logs a, b, c on the console
+        </pre>
+
+Results from Tester Js using syntax.js for evaluation:
+<div id="results">
+</div>
+
+
+<p>Features (big view)</p>
+<ul>
+    <li>Lexer</li>
+    <li>Parser</li>
+    <li>Interpreter</li>
+    <li>follows the Ecma-262 specification, is nearly compliant with it´s draft version.</li>
+    <li>Interfaces for code generation, decoration</li>
+    <li>Bytecode Interpreter soon!</li>
+    <li>Includes my Homepage syntax-highlighter, which has mouseover code annotations.</li>
+    <li>Which will be upgraded to guess the language and hit a parser from a factory.</li>
+    <li>Runs in Browsers, on Node, with Web Workers.</li>
+</ul>
+
+
+<a href="https://github.com/edwardgerhold/syntaxjs">download me on github</a>
+
+
+<p>Lacks</p>
+<ul>
+    <li>Generators, by using recursive evaluation without memory.</li>
+    <li>Fix and methodic is already discussed by me in my git´s history.</li>
+    <li>Unicode awareness is not complete, but the algorithms are already there,
+        meanwhile i figured out, how and what to do.</li>
+    <li></li>
+</ul>
+
+<script>
+
+    window.addEventListener("load", function (e) {
+        var code = document.getElementById("code1").textContent;
+        var realm = syntaxjs.createRealm();
+        var result = realm.eval(code);
+        var test = new Test();
+        test.add(function () {
+            var code = "c[0]";
+            var result = realm.eval(code);
+            this.assert(result, "a", "c[0] should be 'a'");
+        });
+        test.add(function () {
+            var code = "c[1]";
+            var result = realm.eval(code);
+            this.assert(result, "b", "c[1] should be 'b'");
+        });
+        test.add(function () {
+            var code = "c[2]";
+            var result = realm.eval(code);
+            this.assert(result, "c", "c[2] should be 'c'");
+        });
+        test.run();
+        test.html({ el: "#results" })
+    }, false);
+
+</script>

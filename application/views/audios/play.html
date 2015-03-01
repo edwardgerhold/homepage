@@ -1,0 +1,60 @@
+<style>
+    #audio-wrapper {
+        padding: 1em;
+        margin: 1em;
+    }
+    #controls {
+        border: 1px solid black;
+    }
+    #controls button {
+        background:lightgrey;
+        border: 1px inset darkgrey;
+        background-image: -moz-linear-gradient(lightgrey, grey, white);
+        background-image: -webkit-linear-gradient(lightgrey, grey, white);
+        background-image: -ms-linear-gradient(lightgrey, grey, white);
+        background-image: -o-linear-gradient(lightgrey, grey, white);
+        background-image: linear-gradient(lightgrey, grey, white);
+    }
+    #controls input {
+        border-radius:8px;
+    }
+    #controls label {
+        font-family: lucida;
+    }
+
+
+</style>
+{if !isset($sources)}
+<p>Can not locate any audio sources.</p>
+{/if}
+
+<div id="audio-wrapper" class="wrapper">
+
+
+    <div id="controls" class="wrapper">
+        <audio width="auto" height="auto" controls>
+            {if isset($sources)}
+            {foreach $sources as $source}
+            <source src="{echo $source->src}" type="{echo $source->type}">
+            {/foreach}
+            {/if}
+        </audio>
+        <button id="play">Play</button>
+        <div><span id="time">00:00</span>
+            <span id="duration">00:00</span>
+            <span id="rate"></span>
+        </div>
+        <label for="volume">
+            Vol:<input id="volume" name="volume" type="range" min="0" max="1" step="0.1" required>
+        </label>
+        <button id="mute">Mute</button>
+        <input id="seekbar" name="seekbar" type="range" min="0" max="1" step="0.1" required>
+        <button id="rewind" class="speed">Rewind</button>
+        <button id="ff" class="speed">Fast Forward</button>
+        <button id="fullscreen">Fullscreen</button>
+    </div>
+</div>
+<br style="clear:both;">
+<script>
+    {inline /application/scripts/audio.js}
+</script>

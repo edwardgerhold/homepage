@@ -1,0 +1,26 @@
+{if isset($results))}
+
+
+        <ol>
+        {foreach $results->passed as $i => $passed}
+
+
+        <li></li>
+
+
+        {/foreach}
+            {foreach $results->failed as $i => $passed}
+
+            <li></li>
+
+
+            {/foreach}
+            {foreach $results->passed as $i => $passed}
+
+            <li></li>
+
+
+            {/foreach}
+        </ol>
+
+{/if}

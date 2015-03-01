@@ -1,0 +1,14 @@
+<h1>Add a message to your status bar</h1>
+
+{if isset($user) && isset($editable) && ($user-admin || ($editable->user == $user->id))}
+
+<form class="wrapper" method="post" action="/messages/edit.html">
+    <textarea name="body">{echo $editable->body}</textarea>
+    <input type="submit" name="update" value="update" />
+</form>
+
+{/if}
+{else}
+    <p>You have to log in first!</p>
+{/else}
+

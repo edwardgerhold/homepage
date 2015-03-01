@@ -1,0 +1,16 @@
+{if isset($success)}
+<p>{local The language has been changed to} {echo $lang}</p>
+{/if}
+
+<form method="post" class="wrapper" action="/languages/select.html">
+{if isset($languages)}
+    <label>{local Language}:
+    <select class="wrapper">
+    {foreach $languages as $language}
+        <option name="language" value="{echo $language}"></option>
+    {/foreach}
+    </select>
+    </label>
+{/if}
+    <input type="submit" name="select" value="select">
+</form>

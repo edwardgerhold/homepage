@@ -1,0 +1,13 @@
+{if ($user->admin)}
+<h1>Add another Source!</h1>
+<form method="post">
+    <label>Src: <input name="src" type="text" required></label>
+    <label>Type: <input name="type" type="text" required></label>
+    <label>Media: <input name="media" type="text">
+    </label>
+    <input type="submit" name="add" value="add">
+</form>
+{/if}
+{else}
+       You need to be an admin to do that.
+{/else}

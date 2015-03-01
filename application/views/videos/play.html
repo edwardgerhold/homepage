@@ -1,0 +1,77 @@
+<style>
+    #video-wrapper {
+        padding: 1em;
+        margin: 1em;
+    }
+
+    #controls {
+        border: 1px solid black;
+    }
+
+    #controls button {
+        background: lightgrey;
+        border: 1px inset darkgrey;
+        background-image: -moz-linear-gradient(lightgrey, grey, white);
+        background-image: -webkit-linear-gradient(lightgrey, grey, white);
+        background-image: -ms-linear-gradient(lightgrey, grey, white);
+        background-image: -o-linear-gradient(lightgrey, grey, white);
+        background-image: linear-gradient(lightgrey, grey, white);
+    }
+
+    #controls input {
+        border-radius: 8px;
+    }
+
+    #controls label {
+        font-family: lucida;
+    }
+
+
+</style>
+
+{if !isset($video)}
+<p>No video found.</p>
+{/if}
+
+<div id="video-wrapper" class="wrapper">
+    <h1>HTML5 Video Player</h1>
+    <h2>{echo $video->title}</h2>
+    <div id="controls" class="wrapper">
+        <div id="filename"></div>
+        <video width="auto" height="auto"
+        {if $video->src}
+            src="{echo $video->src}"
+        {/if}
+        controls>
+        {foreach $video->sources as $source}
+            <source src="{echo $source->src}" type="{echo $source->type}">
+        {/foreach}
+        </video>
+        <button id="play">Play</button>
+        <button id="mute">Mute</button>
+        <button id="rewind" class="speed">Rewind</button>
+        <button id="ff" class="speed">Fast Forward</button>
+        <button id="fullscreen">Fullscreen</button>
+        <div>
+            Time: <time id="time">00:00</time>|
+            Duration: <time id="duration">00:00</time>|
+            Rate: <span id="rate"></span>
+        </div>
+        <span>|</span>
+        <label for="volume" class="wrapper">
+            Vol: <span id="volumeValue"></span><input id="volume" name="volume" type="number" min="0" max="1" step="0.1"
+                                                      required>
+        </label>
+        <span>|</span>
+        <label for="seekbar" class="wrapper">
+            Seek: <input id="seekbar" name="seekbar" type="range" min="0" max="1" step="0.1" required>
+        </label>
+        <span>|</span>
+        <br>
+
+    </div>
+</div>
+<br style="clear:both;">
+<script>
+    {inline/application/scripts/video.js}
+</script>

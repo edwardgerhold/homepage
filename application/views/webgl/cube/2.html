@@ -1,0 +1,24 @@
+<style>
+
+</style>
+<canvas id="canvas" width="800" height="400">
+</canvas>
+
+<div class="wrapper">
+    Texture(s) to apply:
+    <div id="texture"></div>
+    <input type="file" name="texFile">
+</div>
+<script src="/scripts/gl-matrix-min.js">
+</script>
+<script src="/scripts/webgl-debug.js">
+</script>
+<script>
+    {inline /application/scripts/webgl/2.js}
+</script>
+<script id="vshader" type="x-shader/v-shader">
+    {inline /www/scripts/shaders/v-2.glsl}
+</script>
+<script id="fshader" type="x-shader/f-shader">
+    {inline /www/scripts/shaders/f-2.glsl}
+</script>

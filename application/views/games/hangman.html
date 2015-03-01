@@ -1,0 +1,49 @@
+<style>
+    .letters{
+        position:absolute;
+        left:0px;
+        top:0px;
+        border:2px;
+        border-style:double;
+        margin:5px;
+        padding:5px;
+        color:#f00;
+        background-color:#0fc;
+        font-family:"Courier New", Courier, monospace;
+    }
+    .blanks{
+        position:absolute;left:0px;top:0px;border:none;
+        margin:5px;padding:5px;color:#006;background-color:white;
+        font-family:"Couriwer New", Courier, monospace;
+        text-decoration: underline;color:black;
+    }
+    #canvas {
+        background:white;
+        width:auto;
+        height:auto;
+    }
+</style>
+<section>
+    <div id="hints"></div>
+    <canvas width="800" height="320" id="canvas"></canvas>
+</section>
+<script>
+    var words = [
+            "abrakadabra",
+            "hangman",
+            "html",
+            "game",
+            "edward",
+            "lanugage",
+            "brain",
+            "harddisk",
+            "internet"
+    ];
+    window.addEventListener("load", tell, false);
+    function tell() {
+        document.getElementById("hints").innerHTML = "Hint: it´s one of ". words.toString();
+    }
+</script>
+<script>
+    {inline /application/scripts/hangman.js}
+</script>

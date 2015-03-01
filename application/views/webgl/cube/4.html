@@ -1,0 +1,32 @@
+<style>
+    #canvas {
+        width:100%;
+        height:100%;
+        border-radius:2em;
+    }
+</style>
+<canvas id="canvas" width="800" height="400">
+</canvas>
+
+</script>
+<script src="/scripts/webgl-debug.js">
+</script>
+<script src="/scripts/gl-matrix-min.js">
+</script>
+<script src="/scripts/keyboard.js">
+</script>
+
+<iframe id="shaders" src="/scripts/webgl-framework-shaders.html" style="width:0;height:0;"></iframe>
+<script src="/scripts/webgl-framework.js">
+</script>
+
+<script id="vshader" type="x-shader/v-shader">
+    {inline /www/scripts/shaders/4-v.glsl}
+</script>
+<script id="fshader" type="x-shader/f-shader">
+    {inline /www/scripts/shaders/4-f.glsl}
+</script>
+<script>
+    // <!-- this is my first source i write with the library -->
+    {inline /application/scripts/webgl/4.js}
+</script>

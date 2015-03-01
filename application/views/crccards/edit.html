@@ -1,0 +1,14 @@
+<h1>Edit a CRC Card</h1>
+{if isset($success)}
+        <p>The card has been edited.</p>
+{/if}
+
+<form method="post">
+    <label for="class">Class</label>
+    <input type="text" name="class" value="{echo $editable->class}">
+    <label for="responsibility">Responsibility</label>
+    <textarea name="responsibility">{echo $editable->responsibility}</textarea>
+    <label for="collaborations">Collaborations</label>
+    <textarea name="collaborations">{echo $editable->collaborations}</textarea>
+    <input type="submit" name="update" value="update">
+</form>

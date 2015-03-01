@@ -1,0 +1,93 @@
+<section class="profile">
+    <h1 class="wrapper">{echo $user->name}</h1>
+
+    <p>This is a profile page for
+    <address>{echo $user->first} {echo $user->last}</address>
+    !</p>
+
+    <p>Ideen für die Profilseite: HTML5 Notepad mit Localstore Button und automatischem sessionStore sowie Name und Liste von Notizen.</p>
+
+    <div class=wrapper id="notepad">
+
+    </div>
+    <script>
+    {inline /application/scripts/notepad.js}
+    </script>
+
+    <table width="100%" class="profile wrapper">
+        {if isset($photo) && !empty($photo)}
+        <tr class="wrapper odd">
+            <td>Image</td>
+            <td><img src="/uploads/{echo $photo->name}"/></td>
+        </tr>
+        {/if}
+        <tr class="even">
+            <td>Name</td>
+            <td>{echo $user->name}</td>
+        </tr>
+        <tr class="odd">
+            <td>First</td>
+            <td>{echo $user->first}</td>
+        </tr>
+        <tr class="even">
+            <td>Last</td>
+            <td>{echo $user->last}</td>
+        </tr>
+        <tr class="odd">
+            <td>Email</td>
+            <td>{echo $user->email}</td>
+        </tr>
+        <tr class="even">
+            <td>Website</td>
+            <td>{echo \Framework\Markup::anchor($user->website)}</td>
+        </tr>
+        <tr class="odd">
+            <td>City</td>
+            <td>{echo $user->city}</td>
+        </tr>
+        <tr class="even">
+            <td>Country</td>
+            <td>{echo $user->country}</td>
+        </tr>
+        <tr class="odd">
+            <td>Job</td>
+            <td>{echo $user->job}</td>
+        </tr>
+        <tr class="even">
+            <td>Company</td>
+            <td>{echo $user->company}</td>
+        </tr>
+        <tr class="odd">
+            <td>Bithday</td>
+            <td>{echo $user->birthday}</td>
+        </tr>
+        <tr class="even">
+            <td>Language</td>
+            <td>{echo $user->language}</td>
+        </tr>
+        <tr class="odd">
+            <td>Motto</td>
+            <td>{echo $user->motto}</td>
+        </tr>
+        <tr class="even">
+            <td>Like</td>
+            <td>{echo $user->likes}</td>
+        </tr>
+        <tr class="odd">
+            <td>Doesn´t like</td>
+            <td>{echo $user->doesntlike}</td>
+        </tr>
+    </table>
+
+    {if $user->admin}
+    <p>You have administrator rights.</p>
+    {/if}
+    {elseif $user->publisher}
+    <p>You have publisher rights.</p>
+    {/elseif}
+    {else}
+    <p>You have user rights</p>
+    {/else}
+
+
+</section>

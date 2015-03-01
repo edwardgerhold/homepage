@@ -1,0 +1,34 @@
+{if isset($success)}
+  <p>The new topic has been added!</p>
+{/if}
+
+{if isset($errors)}
+<h1>List of Errors</h1>
+<ul>
+    {foreach $errors as $name => $value}
+    <li>{echo $error->name}: {echo $error->value}</li>
+    {/foreach}
+</ul>
+{/if}
+
+<h1>Available Topics</h1>
+{if isset($topics)}
+    <ul>
+    {foreach $topics as $topic}
+            <li>{echo $topic->id}: {echo $topic->name}
+                <a href="/topics/edit/{echo $topic->id}">edit</a>
+                {if $topic->deleted}
+                    <a href="/topics/undelete/{echo $topic->id}">undelete</a>
+                {/if}
+                {else}
+                    <a href="/topics/delete/{echo $topic->id}">delete</a>
+                {/else}
+            </li>
+     {/foreach}
+    </ul>
+{/if}
+
+<form class="wrapper" class="wrapper" method="post" action="/topics/add">
+    <label>Add a topic:<br><input type="text" name="name"></label>
+    <input type="submit" name="add" value="add">
+</form>

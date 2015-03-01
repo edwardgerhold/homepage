@@ -1,0 +1,183 @@
+<!doctype html>
+<canvas id="canvas" width="600" height="400">
+</canvas>
+<select id="mesh">
+    <option value="wall">Wall</option>
+    <option value="cube">Cube</option>
+</select>
+<script src="/scripts/gl-matrix-min.guide.js"></script>
+<script src="/scripts/webgl_beginners_guide.js"></script>
+<script id="shader-vs" type="x-shader/x-vertex">
+attribute vec3 aVertexPosition;
+attribute vec4 aVertexColor;
+attribute vec3 aVertexNormal;
+attribute vec2 aTextureCoord;
+
+uniform vec3 uLightPos;
+uniform mat4 uMVMatrix;
+uniform mat4 uPMatrix;
+uniform mat4 uNMatrix;
+uniform vec4 uMaterial;
+
+varying vec4 vColor;
+varying vec3 vNormal;
+varying vec3 vL;
+varying vec3 vEye;
+varying vec4 vLight;
+void main() {
+
+    vec4 vertex = uMVMatrix * vec4(aVertexPosition, 1.0);
+    vNormal = normalize(vec3(uNMatrix * vec4(aVertexNormal, 0.0)));
+
+    vec4 light = vec4(1,1,1,1);
+    vec3 L = normalize(vertex.xyz - uLightPos);
+    vL = L;
+    vLight = light;
+    vEye = vertex.xyz;
+    float term = max(dot(L, vNormal), 0.0);
+    if (term > 0.0){
+        vColor = uMaterial + light * term;
+    } else {
+        vColor = uMaterial;
+    }
+    gl_Position = uPMatrix * vertex;
+}
+
+
+</script>
+<script id="shader-fs" type="x-shader/x-fragment">
+precision highp float;
+
+uniform float uShininess;
+varying vec3 vNormal;
+varying vec4 vColor;
+varying vec3 vL;
+varying vec3 vEye;
+varying vec4 vLight;
+
+void main() {
+    // specular hier mit vNormal hinzufügen
+
+    vec3 R = reflect(vNormal, vL);
+    vec3 E = normalize(vEye);
+    float specular = pow(max(dot(R,E),0.0), uShininess);
+    if (specular > 0.0) {
+        gl_FragColor = vec4(vColor.rgb + vLight.rgb * specular, 1.0);
+    } else {
+        gl_FragColor = vColor;
+    }
+}
+
+</script>
+<script>
+
+    var cube, interactor, transforms, lights, attributeList, uniformList, trackingCam, orbitCam, wall, sphere, cone, object;
+    var i = 0, j = 0;
+    function draw() {
+        gl.viewport(0, 0, c_width, c_height);
+        gl.enable(gl.DEPTH_TEST);
+        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+        gl.disableVertexAttribArray(0);
+        gl.disableVertexAttribArray(1);
+        gl.disableVertexAttribArray(2);
+        transforms.updatePerspective();
+        transforms.init();
+        gl.uniform3fv(Program.uLightPos, Lights.list[0].position);
+        gl.uniform4fv(Program.uMaterial, [0.745, 0.123, 0.23, 1.0]);
+        gl.uniform1f(Program.uShininess, 1.0);
+        var obj = Scene.getObject(selectedMesh);
+        var objTransform = transforms.mvMatrix;
+        mat4.translate(objTransform, [0, 2, 0]);
+        mat4.scale(objTransform, [10, 10, 10])
+        mat4.rotateX(objTransform, Math.PI / 180 * i);
+        mat4.rotateZ(objTransform, Math.PI / 180 * j);
+        if (i == 360) i = 0;
+        i++;
+        if (j == 360) j = 0;
+        j++;
+
+
+        gl.uniform4fv(Program.uMaterial, [0.6, 0.6, 0.6, 1.0]);
+
+        transforms.setMatrixUniforms();
+        gl.bindBuffer(gl.ARRAY_BUFFER, obj.vbo);
+        gl.vertexAttribPointer(Program.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
+        gl.enableVertexAttribArray(Program.aVertexPosition);
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, obj.nbo);
+        gl.vertexAttribPointer(Program.aVertexNormal, 3, gl.FLOAT, false, 0, 0);
+        gl.enableVertexAttribArray(Program.aVertexNormal);
+
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, obj.ibo);
+        gl.drawElements(gl.TRIANGLE_STRIP, obj.indices.length, gl.UNSIGNED_SHORT, 0);
+    }
+
+
+    var selectedMesh = "cube";
+
+    function configure() {
+
+        document.getElementById("mesh").addEventListener("change", function (e) {
+            var options = this.querySelectorAll("option");
+            for (var i = 0, j = options.length; i < j; i++) {
+                if (options[i].checked) selectedMesh = options[i].value;
+
+            }
+        });
+
+
+        gl.clearColor(0, 0, 0, 1);
+        gl.clearDepth(1.0);
+        trackingCam = new Camera(CAMERA_TRACKING_TYPE);
+        orbitCam = new Camera(CAMERA_ORBITING_TYPE);
+        Lights.add(new Light("left"));
+        Lights.add(new Light("right"));
+        Lights.list[0].setPosition([15, 0, -15]);
+        Lights.list[1].setPosition([15, 0, 15]);
+        attributeList = [
+            "aVertexPosition",
+            "aVertexNormal",
+            "aVertexColor"
+        ];
+        uniformList = [
+            "uShininess",
+            "uMVMatrix",
+            "uPMatrix",
+            "uNMatrix",
+            "uLightPos",
+            "uMaterial"
+        ];
+        trackingCam.goHome([0, 0, 100]);
+        interactor = new CameraInteractor(trackingCam, canvas);
+        transforms = new SceneTransforms(trackingCam);
+        Program.load(attributeList, uniformList);
+        trackingCam.hookRenderer = render;
+
+    }
+
+
+    function load() {
+        Floor.build(100, 100);
+        Scene.addObject(Floor);
+        Scene.loadObject("/scripts/geometry/wall.json", "wall");
+        Scene.loadObject("/scripts/geometry/simpleCube.json", "cube");
+    }
+
+    function render() {
+        requestAnimationFrame(draw);
+    }
+
+
+
+
+    var app = null;
+    function runWebGLApp() {
+        app = new WebGLApp("canvas");
+        app.configureGLHook = configure;
+        app.loadSceneHook = load;
+        app.drawSceneHook = render;
+        app.run();
+    }
+    window.addEventListener("load", runWebGLApp);
+
+</script>

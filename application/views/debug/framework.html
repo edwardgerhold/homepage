@@ -1,0 +1,51 @@
+<section>
+    <h1>Framework</h1>
+
+    <p>Die JavaScript Version</p>
+
+    <p>Hier ist meine Testseite</p>
+
+    <p>Bald laufen hier Tests auf der Seite.</p>
+
+    <pre>
+        {inline /www/scripts/framework.js}
+    </pre>
+
+    <output id="results" class="wrapper results">
+
+    </output>
+
+    <script>
+        window.addEventListener("DOMContentLoaded", function (e) {
+            var test = new Test();
+            test.add(function () {
+                this.assert(true, true, "true ist true um tester.js zu testen");
+            });
+            test.run();
+            test.html({el: "#results"});
+
+            test.add(function () {
+                var router = new Router();
+                router.routes = [
+                    {
+                        pattern: "/debug/framework/:name",
+                        controller: "debug",
+                        action: "framework"
+                    },
+                    {
+                        pattern: "/debug/framework/:id",
+                        controller: "debug",
+                        action: "framework"
+                    }
+                ];
+
+            })
+        }, false);
+    </script>
+</section>
+<script>
+    {inline /www/scripts/framework.js}
+</script>
+<script>
+    {inline /www/tester.js}
+</script>

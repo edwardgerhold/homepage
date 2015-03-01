@@ -1,0 +1,11 @@
+<h1>Add a message to your status bar</h1>
+{if isset($user)}
+<form class="wrapper" class="wrapper" method="post" action="/messages/add.html">
+    <textarea name="body"></textarea>
+    <input type="submit" name="share" value="share" />
+</form>
+{/if}
+{else}
+    <p>You have to log in first!</p>
+{/else}
+

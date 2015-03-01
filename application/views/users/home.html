@@ -1,0 +1,58 @@
+<section class="home wrapper" cite="/users/home">
+    <h1>Home</h1>
+
+    {if isset($success)}
+    <p>Your Message has been added.</p>
+    {/if}
+
+    {if isset($user)}
+    <p>Add some new message to your timeline:</p>
+
+    <form class="wrapper" method="post" action="/messages/add.html">
+        <textarea name="body"></textarea>
+        <input type="submit" name="share" value="share"/>
+    </form>
+    {if isset($messages)}
+
+    {foreach $messages as $i => $message}
+    <section class="message wrapper">
+        <p class="created">{echo $message->created}</p>
+
+        <p class="message">{echo $message->body}</p>
+        <section class="reply_messages wrapper">
+            {foreach \Homepage\Message::fetchReplies($message->id) as $reply}
+            <span class="reply_message_created">{echo $reply->created}</span>
+
+            <p class="reply_message">{echo $reply->body}</p>
+            {/foreach}
+        </section>
+        <section class="reply_form">
+            <form class="wrapper" method="post" action="/messages/add.html">
+                <label>Reply to this message group:
+                    <textarea name="body"></textarea>
+                </label>
+                <input type="hidden" value="{echo $message->id}" name="message"/>
+                <input type="submit" name="share" value="share"/>
+            </form>
+        </section>
+    </section>
+
+    {/foreach}
+
+    {/if}
+
+    <p>Add some new message to your timeline:</p>
+
+    <form class="wrapper" method="post" action="/messages/add.html">
+        <textarea name="body"></textarea>
+        <input type="hidden" name="origin" value="/users/home.html">
+        <input type="submit" name="share" value="share"/>
+    </form>
+
+    {/if}
+    {else}
+    <p>You have to be logged in to share messages.</p>
+    {/else}
+</section>
+
+{editor}

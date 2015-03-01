@@ -1,0 +1,52 @@
+/**
+*
+* Edward´s Homepage is written by Edward Gerhold
+* http://github.com/edwardgerhold/homepage
+* Edward´s Homepage is originally developed for
+* http://linux-swt.de (c) 2014 Edward Gerhold
+* This is free and open source software for you.
+*
+* The Homepage Application Framework bases on the
+* "Pro PHP MVC" Framework from the namely equal book
+* by Chris Pitt released by http://apress.com.
+*
+* The application is Edward´s Homepage.
+*
+* It is some independent work, started somewhere
+* in Berlin, Germany, in July 2014 by Edward Gerhold
+* for his Homepage. He thought about rewriting it,
+* but not without telling the world what his code
+* bases on. The greatest PHP MVC Framework in a book
+* ever. And not without loading it into a PHPStorm
+* evaluation copy from http://jetbrains.com for
+* the ultimate experience.
+*
+* Created by ${PRODUCT_NAME}
+* Date: ${DATE}
+* Time: ${TIME}
+* User: Edward Gerhold
+* Project ${PROJECT_NAME}
+*/
+
+
+/*
+*                                    First i typed
+* down the whole framework, then i copied the code
+* of the remaining demo application files together.
+* This was a good start to get into the framework.
+* It has a Registry, Configuration, Session, Data-
+* base, Router, Controller, Model, View, Template,
+* with serious factory methods for drivers with
+* consistent interfaces, a base class with magic
+* getters and setters and a property inspector each
+* instance. The property inspector reads comments
+* and interprets @read, @write, @readwrite for the
+* protected attributes for the magic getters and
+* setters. But also @column and @type text or
+* @validate handler[ handler] or @label identifier
+* for Model ORM and validation with messages behind
+* the label to tell the developer or the user what
+* went wrong. It interpretes @protected for the
+* Controller functions. @protected commented methods
+* will not be routed.
+*/

@@ -1,0 +1,124 @@
+<h1>Search</h1>
+<p>Currently implemented is User Search with SOUNDEX of the First and Last Name.</p>
+<p>Ein Update der Suche auf die gesamte Datenbank und eingeteilt in Suchfunktionen folgt sehr bald.</p>
+<p>Der Suche widme ich mich genauer in den Anforderungen und gedenke das dann so umzusetzen.</p>
+
+{if isset($count)}
+    <p>Now counting {echo $count} users!</p>
+{/if}
+
+<form class="wrapper" method="post">
+    <ol>
+        <li>
+            <label>
+                Query:
+                <input type="text" name="query" value="{echo $query}" /><br>
+            </label>
+        </li>
+        <li>
+            <label>Search users:
+            <input {if $search_users == 1}checked{/if} type="checkbox" name="search_users"><br>
+            </label>
+            <label>Search posts:
+            <input {if $search_posts == 1}checked{/if} type="checkbox" name="search_posts"><br>
+            </label>
+        </li>
+        <li>
+            <label>
+                Order:
+                <select name="order">
+                    <option {if $order == "created"}selected="selected"{/if} value="created">Created</option>
+                    <option {if $order == "modified"}selected="selected"{/if} value="modified">Modified</option>
+                    <option {if $order == "first"}selected="selected"{/if} value="first">First name</option>
+                    <option {if $order == "last"}selected="selected"{/if} value="last">Last name</option>
+                </select>
+            </label>
+        </li>    
+        <li>
+            <label>
+                Direction:
+                <select name="direction">
+                    <option {if $direction == "asc"}selected="selected"{/if} value="asc">Ascending</option>
+                    <option {if $direction == "desc"}selected="selected"{/if} value="desc">Descending</option>
+                </select>
+            </label>
+        </li>
+        <li>
+            <label>
+                Page:
+                <select name="page">
+                    {if $count == 0}
+                        <option value="1">1</option>
+                    {/if}
+                    {else}
+                        {foreach range(1, ceil($count / $limit)) as $_page}
+                            <option {if $page == $_page}selected="selected"{/if} value="{echo $_page}">{echo $_page}</option>
+                        {/foreach}
+                    {/else}
+                </select>
+            </label>
+        </li>
+        <li>
+            <label>
+                Limit:
+                <select name="limit">
+                    <option {if $limit == "10"}selected="selected"{/if} value="10">10</option>
+                    <option {if $limit == "20"}selected="selected"{/if} value="20">20</option>
+                    <option {if $limit == "30"}selected="selected"{/if} value="30">30</option>
+                </select>
+            </label>
+        </li>
+        <li>
+            <input type="submit" name="search" value="search" />
+        </li>
+    </ol>
+</form>
+
+{if $users != false}
+        <h2>Found users:</h2>
+    <table width="100%" class="search wrapper">
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>First Last</th>
+            <th>City Country</th>
+            <th>Job Company</th>
+            <th>Entity Relationship</th>
+        </tr>
+        {foreach $users as $_user}
+            {script $file = $_user->file;}
+            <tr>
+                <td>{if $file}<img src="/uploads/{echo $file->name}" />{/if}</td>
+                <td>{echo $_user->name}</td>
+                <td>{echo $_user->first} {echo $_user->last}</td>
+                <td>{echo $_user->city} {echo $_user->country}</td>
+                <td>{echo $_user->job} {echo $_user->company}</td>
+                <td>
+                    {if $user->isFriend($_user->id)}
+                        <a href="/users/unfriend/{echo $_user->id}.html">unfriend</a>
+                    {/if}
+                    {else}
+                        <a href="/users/friend/{echo $_user->id}.html">friend</a>
+                    {/else}
+                </td>
+            </tr>
+        {/foreach}
+    </table>
+{/if}
+
+{if $posts != false}
+<section class="wrapper">
+    <h2>Found posts</h2>
+    <ol>
+        {foreach $posts as $post}
+            <li>
+                <article>
+                    <header>{echo $post->title}</header>
+                    {script $excerpt = substring($post->content, 1, 140);}
+                    <p>{echo $excerpt}</p>
+                </article>
+            </li>
+        {/foreach}
+    </ol>
+</section>
+{/if}

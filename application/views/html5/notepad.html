@@ -1,0 +1,52 @@
+
+<style>
+    #notes {
+        width:50%;
+    }
+    #noteBoard, textarea {
+        border-radius: 0.625em;
+        box-shadow: 0em 0em 0.25em rgba(0,0,0,0.4);
+        width:50%;
+        max-width:50%;
+    }
+    #noteBoard {
+        float:right;
+        background: #FCFABA;
+        max-width:50%;
+        width:50%;
+    }
+    #updateNote {
+        display: none;
+        max-width:50%;
+        width:50%;
+    }
+    #addNote {
+        max-width:50%;
+        width:50%;
+    }
+</style>
+
+<section class="wrapper">
+
+    <h1>Note Board</h1>
+
+    <section id="noteBoard" class="wrapper"></section>
+
+    <section id="addNote" class="wrapper">
+        <h1>Add a new note here:</h1>
+        <textarea name="note" id="note"></textarea>
+        <button id="btnAddNote">Add Note</button>
+    </section>
+
+    <section id="updateNote" class="wrapper">
+        <h1>Update the Note</h1>
+        <input type="text" name="oldKey" id="oldKey" disabled>
+        <textarea name="oldNote" id="oldNote"></textarea>
+        <button id="btnUpdateNote">Update Note</button>
+    </section>
+
+</section>
+<br style="clear:both;">
+<script>
+    {inline /application/scripts/notepad.js}
+</script>

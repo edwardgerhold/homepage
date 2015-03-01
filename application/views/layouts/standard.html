@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+
+    <base href="/">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="Edward Gerhold" name="author">
+    <meta content="Berlin" name="city">
+    <meta name="keywords" content="javascript, ecmascript, programming, assembly, software engineering, novice, beginner, intermediate, medium, advanced, professional, from dreams to practice">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {if !isset($title)}
+    <title>Edward´s Homepage</title>
+    {/if}
+    {else}
+    <title>{echo $title}</title>
+    {/else}
+
+    {if isset($styles)}
+    {echo $styles}
+    {/if}
+    {else}
+    {include styles.html}
+    {/else}
+
+    {if isset($scripts_top)}
+    {echo $scripts_top}
+    {/if}
+
+</head>
+<body class="wrapper">
+<section class="pagewrapper wrapper">
+    <!--[if lt IE 10]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href=http://browserhappy.com/>upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    {include header.html}
+
+
+
+    <section id="action" class="action">
+        {yield action}
+    </section>
+
+    {if isset($actions)}
+    {include actions.html}
+    {/if}
+
+    {include topics.html}
+    {include categories.html}
+    {include navigation.html}
+    {include footer.html}
+
+    {if isset($scripts_bottom)}
+    {echo $scripts_bottom}
+    {/if}
+    {else}
+    {include scripts.html}
+    {/else}
+
+    <script>
+        {inline /application/scripts/battery.js}
+    </script>
+    <script>
+        {inline /application/scripts/notification.js}
+    </script>
+
+</section>
+</body>
+</html>

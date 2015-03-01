@@ -1,0 +1,21 @@
+{if isset($errors)}
+<h1>List of Errors</h1>
+<ul>
+    {foreach $errors as $name => $value}
+    <li>{echo $error->name}: {echo $error->value}</li>
+
+    {/foreach}
+</ul>
+{/if}
+
+{if isset($category)}
+    <p>All posts for category "{echo $category->name}"</p>
+{/if}
+
+{foreach $posts as $post}
+<article class="post">
+    <h1>{echo $post->title}</h1>
+    <span>{echo $post->created}</span>
+    <p>{echo $post->content}</p>
+</article>
+{/foreach}

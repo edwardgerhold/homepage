@@ -1,0 +1,18 @@
+<h1>Add a new friend</h1>
+
+<p>Select from the list of users</p>
+<ul>
+    {foreach $users as $_user}
+    <li>{echo $_user->name}
+        <form action="post" action="">
+            <input type="hidden" name="origin" value="/friends/add.html">
+            {if $_user->isFriend($user->id)}
+            <input type="submit" name="unlink"  value="unlink">
+            {/if}
+            {else}
+            <input type="submit" name="link" value="link">
+            {/else}
+        </form>
+    </li>
+    {/foreach}
+</ul>

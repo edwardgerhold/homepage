@@ -1,0 +1,141 @@
+<h1>Settings</h1>
+{if isset($success)}
+Your account has been updated!
+{/if}
+<a href="https://ssl-110577.1blu.de/settings">secure</a> | <a href="http://linux-swt.de/settings">http</a>
+<form class="wrapper" method="post" enctype="multipart/form-data">
+    <ol>
+        <li>
+            <label>Name:
+                <b>{echo $user->name}</b></label>
+        </li>
+        <li>
+            <label>
+                Password:
+                <input type="password" name="password" value="" />
+                {echo \Framework\Markup::errors($errors, "password")}
+            </label>
+        </li>
+        <li>
+            <label>
+                Verify Password:
+                <input type="password" name="password2" value="" />
+                {echo \Framework\Markup::errors($errors, "password")}
+            </label>
+        </li>
+
+        <li>
+            <label>
+                First name:
+                <input type="text" name="first" value="{echo $user->first}" />
+            </label>
+        </li>
+        <li>
+            <label>
+                Last name:
+                <input type="text" name="last" value="{echo $user->last}" />
+            </label>
+        </li>
+        <li>
+            <label>
+                Email:
+                <input type="text" name="email" value="{echo $user->email}" />
+            </label>
+        </li>
+        <li>
+            <label>
+                Website:
+                <input type="text" name="website" value="{echo $user->website}" />
+            </label>
+        </li>
+        <li>
+            <label>
+                City:
+                <input type="text" name="city" value="{echo $user->city}" />
+            </label>
+        </li>
+        <li>
+            <label>
+                Country:
+                <input type="text" name="country" value="{echo $user->country}" />
+            </label>
+        </li>
+        <li>
+            <label>
+                Job:
+                <input type="text" name="job" value="{echo $user->job}" />
+            </label>
+        </li>
+        <li>
+            <label>
+                Company:
+                <input type="text" name="company" value="{echo $user->company}" />
+            </label>
+        </li>
+        <li>
+            <label>Birthday:
+                <label>Year:
+                    <select name="year">
+                        {foreach range(1900,2015) as $i}
+                        <option name="year" value="{echo $i}">{echo $i}</option>
+                        {/foreach}
+                    </select>
+                </label>
+                <label>Month:
+                    <select name="month">
+                        {foreach range(1,12) as $i}
+                        <option name="month" value="{echo $i}">{echo $i}</option>
+                        {/foreach}
+                    </select>
+                </label>
+                <label>Day:
+                    <select name="day">
+                        {foreach range(1,31) as $i}
+                        <option name="day" value="{echo $i}">{echo $i}</option>
+                        {/foreach}
+                    </select>
+                </label>
+            </label>
+        </li>
+        <li>
+            <label>
+                Language:
+                <input type="text" name="language" value="{echo $user->language}" />
+            </label>
+        </li>
+        <li>
+            <label>
+                Motto:
+                <input type="text" name="motto" value="{echo $user->motto}" />
+            </label>
+        </li>
+        <li>
+            <label>
+                Like:
+                <input type="text" name="likes" value="{echo $user->likes}" />
+            </label>
+        </li>
+        <li>
+            <label>
+                Don´t like:
+                <input type="text" name="doesntlike" value="{echo $user->doesntlike}" />
+            </label>
+        </li>
+        <li>
+            <label>
+                Photo:
+                <input id="photo" name="photo" type="file" accept="image/*;capture=camera" capture="camera">
+            </label>
+            <section id="wrapper">
+                <section id="photoInfos"></section>
+                <img id="photoPreview" src="">
+            </section>
+        </li>
+        <li>
+            <input type="submit" name="update" value="update" />
+        </li>
+    </ol>
+</form>
+<script>
+    {inline /application/scripts/photo.js}
+</script>

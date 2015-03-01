@@ -1,0 +1,159 @@
+<canvas id="canvas"></canvas>
+
+<script src="/scripts/gl-matrix.js"></script>
+<script src="/scripts/webgl-debug.js"></script>
+<script src="/scripts/webgl-framework.js"></script>
+
+<script id="shader-vs-1" type="x-shader/x-vertex">
+
+    attribute vec3 aVertexPosition;
+    attribute vec3 aVertexNormal;
+    attribute vec4 aVertexColor;
+
+    uniform mat4 uMVMatrix;
+    uniform mat4 uPMatrix;
+    uniform mat3 uNMatrix;
+    uniform vec4 uMaterial;
+
+    varying vec4 vColor;
+    varying vec3 L;
+    varying vec3 N;
+    varying vec4 V;
+    varying float vLambert;
+
+    void main() {
+
+
+
+        V = uMVMatrix * vec4(aVertexPosition, 1.0);
+        N = uNMatrix * aVertexNormal;
+        L = vec3(uMVMatrix*vec4(uLightPos,0)) - vec3(V.xyz/V.w);
+        vLambert = max(dot(N, -L), 0.0);
+        vColor = uMaterial;
+        gl_Position = uPMatrix * V;
+    }
+
+</script>
+<script id="shader-fs-1" type="x-shader/x-fragment">
+    precision highp float;
+
+    varying vec4 vColor;
+    varying vec3 L;
+    varying vec3 N;
+    varying vec4 V;
+    varying float vLambert;
+
+    uniform float uShininess;
+    uniform vec3 uLightDirection;
+    uniform vec3 uSpotDirection;
+    uniform float uSpotWidth;
+    uniform float uSpotIntensity;
+
+
+
+    void main() {
+        float specular;
+        vec3 E = -V;
+        vec3 R = normalize(-reflect(N,L));
+        float spotEffect = dot(uSpotDirection, uLightDirection);
+        if (spotEffect > uSpotWidth)
+        {
+            spotEffect = pow(spotEffect, uSpotIntensity);
+            vColor = vColor * (vec4(1,1,1,1)*spotEffect;
+        }
+        if (vLambert > 0.0)
+        {
+            vColor = vColor * vec4(1,1,1,1)*vLambert;
+
+        }
+
+
+        specular = pow(max(dot(R,E), 0.0), uShininess);
+
+        if (specular > 0.0) { gl_FragColor = vColor * (vec4(1,1,1,1) * specular); }
+    else { gl_FragColor = vColor; }
+    }
+
+</script>
+<script>
+function init() {
+
+    var canvas, gl;
+    var program, vs, fs;
+
+    var attList = [
+        "aVertexPosition",
+        "aVertexNormal",
+        "aVertexColor"
+    ];
+    var uniformList = [
+        "uMVMatrix",
+        "uPMatrix",
+        "uNMatrix",
+            "uMaterial",
+        "uShininess",
+            "uLightDirection",
+            "uSpotDirection",
+            "uSpotWidth",
+            "uSpotIntensity"
+
+];
+
+    var GL = GLFactory.create();
+
+    app = new GL.Controller({
+        vs: "shader-vs-1",
+        fs: "shader-fs-1",
+        debug:true
+    });
+
+    var model = app.addModel();
+
+    model.vertices = [
+            0,0,0,
+            1,0,0,
+            1,1,0,
+
+            1,1,0,
+            1,0,0,
+            0,1,0
+    ];
+    model.indices = [
+            0,1,2,
+            1,2,3
+    ];
+
+
+    model.colors = [];
+    for (var i = 0; i < 6*3; i++) model.colors = model.colors.concat(
+            [
+                    1,0,0,1,
+                    0,1,0,1,
+                    0,0,1,1
+            ]
+    );
+
+    app.update = function (gl, attributes, uniforms) {
+        gl.vertexAttrib4fv(program.aVertexColor, [0.2,0.1,0.6]);
+
+        gl.uniformMatrix4fv(program.uMVMatrix, false, uniforms.uMVMatrix);
+        gl.uniformMatrix4fv(program.uPMatrix, false, uniforms.uPMatrix);
+        gl.uniformMatrix3fv(program.uNMatrix, false, uniforms.uNMatrix);
+
+        gl.uniform4fv(program.uMaterial, [1,1,1,1.0]);
+        gl.uniform1f(program.uShininess, 0.65);
+        gl.uniform3fv(program.uLightPosition, [0, 1, 10]);
+        gl.uniform3fv(program.uSpotDirection, [0,-1,0]);
+        gl.uniform3fv(program.uSpotWidth, Math.cos(15));
+        gl.uniform3fv(program.uSpotIntensity, 0.88);
+
+    }
+
+    app.run();
+
+
+
+}
+var app = null;
+window.addEventListener("load", init);
+</script>

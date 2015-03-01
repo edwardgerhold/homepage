@@ -1,0 +1,33 @@
+{if isset($success)}
+    <p>Your post has been updated.</p>
+{/if}
+{elseif isset($error)}
+    <p>{echo $error}</p>
+{/elseif}
+{else}
+{if isset($editable)}
+<form class="wrapper" method="post" action="/posts/edit/{echo $editable->id}.html">
+    <label>Title:
+        <input type="text" name="title" value="{echo $editable->title}" required><br>
+    </label>
+    <label>
+	Content:<br>
+        <textarea name="content">{echo $editable->content}</textarea><br>
+    </label>
+    <label>
+    Category:
+    <select name="category">
+        {if isset($categories)}
+        {foreach $categories as $category}
+        <option name="category" value="{echo $category->id}">{echo $category->name}</option>
+        {/foreach}
+        {/if}
+    </select>
+    </label>
+    <label>
+	Send: <input type="submit" name="update" value="update"><br>
+    </label>
+</form>
+{/else}
+
+{editor}

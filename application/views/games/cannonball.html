@@ -1,0 +1,31 @@
+<style>
+    form {
+        width: 20.625em;
+        margin: 1.25em;
+        background-color:brown;
+        padding: 1.25em;
+    }
+</style>
+<section>
+        <canvas id="canvas" width="600" height="400">
+            Your browser does not support canvas? Trying to fool my site? Joke, but get some update.
+        </canvas>
+        <br/>
+    <form name="f" id="f" onSubmit="return fire();">
+        Set velocitiy, angle and fire cannonball.<br>
+        Horizontal displacement <input name="hv" id="hv"
+                                       value="10" type="number"
+                                       min="-100"
+                                       max="100"/>
+        <p>Later..</p>
+        Velocity out of cannon <input name="vo" id="vo" value="10" type="number" min="-100" max="100">
+        <br>
+        Angle <input name="ang" id="ang" value="0" type="number" min="0" max="80">
+        <input type="submit" value="FIRE">
+    </form>
+
+</section>
+<script>
+    {inline /application/scripts/cannonball.js}
+    window.addEventListener("load", init, false);
+</script>

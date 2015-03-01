@@ -1,0 +1,15 @@
+{if $categories}
+<nav class="categories wrapper">
+    <ul class="wrapper">
+        {foreach $categories as $category}
+        <li class="wrapper"><a class="wrapper" href="/posts/category/{echo $category->id}.html" title="{echo $category->name}">{echo $category->name}</a></li>
+        {/foreach}
+
+        {if isset($user)}
+        {if $user->admin}
+        <li><a class="wrapper" href="/categories/add">[admin::categories]</a></li>
+        {/if}
+        {/if}
+    </ul>
+</nav>
+{/if}

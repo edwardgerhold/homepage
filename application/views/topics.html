@@ -1,0 +1,15 @@
+{if $topics}
+<nav class="topics wrapper">
+    <ul class="wrapper">
+        {foreach $topics as $topic}
+        <li class="wrapper"><a class="wrapper" href="/posts/topic/{echo $topic->id}.html" title="{echo $topic->name}">{echo $topic->name}</a></li>
+        {/foreach}
+
+        {if isset($user)}
+        {if $user->admin}
+        <li><a class="wrapper" href="/topics/add">[admin::topics]</a></li>
+        {/if}
+        {/if}
+    </ul>
+</nav>
+{/if}

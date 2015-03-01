@@ -1,0 +1,37 @@
+<section class="wrapper">
+    <h1>Ajax Test Page</h1>
+    <div id="test">
+
+    </div>
+    <hr>
+    <h1>Load into the field above</h1>
+    <label>
+        relative urls only:
+        <input id="url" name="url" value="index.html">
+    </label>
+    <button onclick="testAjax()">Test Ajax</button>
+    <script>
+        {inline /www/scripts/ajax.js}
+    </script>
+    <script>
+
+        function testAjax() {
+
+            var url = document.getElementById("url").value;
+
+            url = url || "index.html";
+
+            if (url.indexOf("://") > -1) {
+                alert("WTF! Relative urls only");
+                return;
+            }
+
+            return getRequest(url).then(function (data) {
+                if (!data.error)
+                    document.getElementById("test").innerHTML = data.response;
+                else
+                    document.getElementById("test").innerHTML = "Error loading page parts.."+data.error;
+            });
+        }
+    </script>
+</section>

@@ -1,0 +1,8 @@
+{if isset($users)}
+        <h1>User List</h1>
+        <ol>
+     {foreach $users as $user}
+        <li>{echo $user->first} {echo $user->last}</li>
+     {/foreach}
+        </ol>
+{/if}

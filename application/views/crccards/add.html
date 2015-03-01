@@ -1,0 +1,113 @@
+<h1>Add a new CRC Card</h1>
+
+{if isset($success)}
+<p>Your new CRC card has been added.</p>
+
+{if isset($card)}
+<style>
+    section.crc-card {
+        padding: 1em;
+        margin:1em;
+    }
+    table.crc-card {
+        font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+        background:white;
+    }
+    th.class {
+        background-color: darkblue;
+        color:white;
+    }
+    th.responsibility {
+        background-color: darkred;
+        color:white;
+    }
+    th.collaborations {
+        background-color:darkgreen;
+        color:white;
+    }
+    td.responsibility {
+        background-color:salmon;
+        color:darkred;
+    }
+    td.collaborations {
+        background-color:lightgreen;
+        color:darkgreen;
+    }
+</style>
+<section class="crc-card wrapper">
+    <table class="crc-card wrapper">
+        <tr><th colspan="2" class="class">class {echo $card->class}</th></tr>
+        <tr><th class="responsibility">Responsibility</th>
+            <th class="collaborations">Collaborations</th></tr>
+        <tr>
+            <td class="responsibility">
+                {echo $card->responsibility}
+            </td>
+            <td class="collaborations">
+                {echo $card->collaborations}
+            </td>
+        </tr>
+    </table>
+</section>
+<a href="/crccards/edit/{echo $card->id}">edit</a>
+{/if}
+{/if}
+{elseif isset($errors)}
+<p>There was an error processing your request.</p>
+{/elseif}
+{/else}
+
+
+<p>Input class, responsibility, collaborations.</p>
+
+<ul>
+    <li>class: Is the classes name.</li>
+    <li>resposibility: What´s the class for, what´s it´s responsibility.</li>
+    <li>collaborations: With whom does this class work together?</li>
+</ul>
+
+<style>
+    form {
+        position:relative;
+        z-index:0;
+    }
+    input[name='class']{
+    }
+    textarea[name='responsibility']{
+        left:0px;
+        width:49%;
+    }
+    textarea[name='collaborations']{
+        right:0px;
+        width:49%;
+    }
+</style>
+
+<form method="post">
+    <table width="100%">
+        <tr>
+            <th colspan="2">
+                <label for="class">Class</label>
+                <input id="class" type="text" name="class" value="">
+            </th>
+        </tr>
+        <tr>
+            <th>
+                <label for="responsibility">Responsibility</label>
+            </th>
+            <th>
+                <label for="collaborations">Collaborations</label>
+            </th>
+        </tr>
+
+        <tr>
+            <td width="50%">
+                <textarea id="responsibility" name="responsibility"></textarea>
+            </td>
+            <td width="50%">
+                <textarea id="collaborations" name="collaborations"></textarea>
+            </td>
+        </tr>
+    </table>
+    <input type="submit" name="add" value="add">
+</form>

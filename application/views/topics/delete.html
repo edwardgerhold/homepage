@@ -1,0 +1,15 @@
+{if isset($errors)}
+<h1>List of Errors</h1>
+<ul>
+    {foreach $errors as $name => $value}
+    <li>{echo $error->name}: {echo $error->value}</li>
+
+    {/foreach}
+</ul>
+{/if}
+{if isset($success)}
+    <p>The topic has been deleted.</p>
+{/if}
+{else}
+   <p>Can not delete topic.</p>
+{/else}

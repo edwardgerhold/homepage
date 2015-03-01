@@ -1,0 +1,20 @@
+<style>
+    #canvas {
+    width:100%;
+    }
+</style>
+<canvas id="canvas" width="800" height="400">
+</canvas>
+<script src="/scripts/gl-matrix-min.js">
+</script>
+<script src="/scripts/webgl-debug.js">
+</script>
+<script>
+    {inline /application/scripts/webgl/6.js}
+</script>
+<script id="vshader" type="x-shader/v-shader">
+    {inline /www/scripts/shaders/6-v.glsl}
+</script>
+<script id="fshader" type="x-shader/f-shader">
+    {inline /www/scripts/shaders/6-f.glsl}
+</script>

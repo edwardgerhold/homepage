@@ -1,0 +1,33 @@
+{if (isset($success))}
+<h1>Sent!</h1>
+<p>Your mail has been sent!</p>
+{/if}
+
+<section cite="/mails/send">
+    <h1>Send email</h1>
+
+    <form action="/mails/send" method="post">
+        <ul>
+            <li>
+                <label>
+                    Subject:
+                    <input type="text" name="subject">
+                </label>
+            </li>
+            <li><label>
+                Receiver:
+                <input type="text" name="receiver">
+            </label>
+            </li>
+            <li>
+                <label>
+                    Message:
+                    <textarea name="message"></textarea>
+                </label>
+            </li>
+        </ul>
+        <input type="submit" name="send" value="send">
+    </form>
+
+    {editor}
+</section>

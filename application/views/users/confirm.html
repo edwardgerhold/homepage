@@ -1,0 +1,12 @@
+{if isset($user)}
+   <h1>Dear {echo $user->name}</h1>
+
+    <p>Your account has to be confirmed. Please look into your mailbox and call the link or enter the hashcode manually here.</p>
+        <form action="/users/confirm" method="post">
+            <input type="text" name="hash" value="" placeholder="Enter the hashcode from your email" required>
+            <input type="submit" name="confirm" value="confirm">
+        </form>
+{/if}
+{else}
+    <h1>Your account has already been confirmed!</h1>
+{/else}

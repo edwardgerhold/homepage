@@ -1,0 +1,57 @@
+<section cite="/users/edit/">
+<h1>Edit User</h1>
+{if isset($success)}
+    The user has been updated!
+{/if}
+{else}
+    <form class="wrapper" method="post">
+        <ol>
+            <li>
+                <label>
+                    First name:
+                    <input type="text" name="first" value="{echo $editable->first}" />
+                    {echo \Framework\Markup::errors($errors, "first")}
+                </label>
+            </li>
+            <li>
+                <label>
+                    Last name:
+                    <input type="text" name="last" value="{echo $editable->last}" />
+                    {echo \Framework\Markup::errors($errors, "last")}
+                </label>
+            </li>    
+            <li>
+                <label>
+                    Email:
+                    <input type="text" name="email" value="{echo $editable->email}" />
+                    {echo \Framework\Markup::errors($errors, "email")}
+                </label>
+            </li>
+            <li>
+                <label>
+                    Password:
+                    <input type="password" name="password" value="{echo $editable->password}" />
+                    {echo \Framework\Markup::errors($errors, "password")}
+                </label>
+            </li>
+            <li>
+                <label>
+                    Live:
+                    <input type="checkbox" name="live" {if $editable->live} 
+checked="checked"{/if} />
+                </label>
+            </li>
+            <li>
+                <label>
+                    Admin:
+                    <input type="checkbox" name="admin" {if $editable->admin} 
+checked="checked"{/if} />
+                </label>
+            </li>
+            <li>
+                <input type="submit" name="save" value="save" />
+            </li>
+        </ol>
+    </form>
+{/else}
+</section>
